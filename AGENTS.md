@@ -16,6 +16,18 @@ Because a truncated tail would drop §19 first, the one rule whose loss is irrev
 repeated here: **this tree is usually dirty and shared with the user and other agents —
 never `reset`, `checkout`, `clean`, reformat, or overwrite work you did not do.**
 
+## Codex model routing
+
+When GPT-5.6 model tiers are available in the current Codex runtime:
+
+- **Sol = orchestrator.** Use Sol for architecture, hard debugging, consequential decisions, integration, and final review.
+- **Terra = implementation worker.** Use Terra for ordinary implementation, refactors, and medium-complexity coding that does not require Sol-level judgment.
+- **Luna = scout/helper.** Use Luna for bounded repo exploration, file search, research, log analysis, repetitive low-risk edits, and other straightforward parallelizable work.
+- Prefer completing small tasks directly instead of spawning subagents when delegation would add more coordination than value.
+- The orchestrator owns scope, synthesis, integration, and the final result. Subagents must stay inside their assigned bounded task and may not independently widen scope.
+- Model routing never overrides repository safety rules, approval checkpoints, testing rules, no-merge rules, spend limits, secrets handling, or deployment/database restrictions.
+- If a requested tier cannot be launched in the current runtime, use the nearest available suitable tier and report the fallback instead of blocking the task solely because of routing.
+
 ---
 
 ## 1. The app in sixty seconds
@@ -207,7 +219,7 @@ src/main/codex/read-backend.ts  connector read semantics over those primitives
 src/main/codex/view-image.ts  image load/validate + MCP content adaptation
 src/main/codex/apply-patch/*  V4A parser / matcher / runtime / shell interception
 
-── sessions ───────────────────────────────────────────────────────────────
+── sessions ────────────────────────────────────────────────────────────────
 src/main/session/store.ts     durable sessions, messages, assets, handoffs
 src/main/session/recorder.ts  merges MCP truth with browser observations
 src/main/session/correlation.ts  requestId → conversationId proof registry
@@ -275,7 +287,7 @@ earn it today.
 | --- | --- | --- |
 | `read` | `read` \| `browse` \| `metadata` | `tools-core.ts` → `codex/read-backend.ts` |
 | `view_image` | `read` | `tools-core.ts` → `codex/view-image.ts` |
-| `find` | `search` **and not** `command` | `tools-core.ts` → `search.ts` |
+| `find` | `search` **and not** `command` | `search.ts` |
 | `apply_patch` | any of `create`/`edit`/`move`/`deleteFile` | `codex/apply-patch/*` |
 | `exec_command`, `write_stdin` | `command` | `codex/unified-exec.ts` |
 | `session` | recording enabled | session subsystem |
