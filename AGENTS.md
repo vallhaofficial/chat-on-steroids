@@ -16,6 +16,18 @@ Because a truncated tail would drop §19 first, the one rule whose loss is irrev
 repeated here: **this tree is usually dirty and shared with the user and other agents —
 never `reset`, `checkout`, `clean`, reformat, or overwrite work you did not do.**
 
+## Codex model routing
+
+When GPT-5.6 model tiers are available in the current Codex runtime:
+
+- **Sol = orchestrator.** Use Sol for architecture, hard debugging, consequential decisions, integration, and final review.
+- **Terra = implementation worker.** Use Terra for ordinary implementation, refactors, and medium-complexity coding that does not require Sol-level judgment.
+- **Luna = scout/helper.** Use Luna for bounded repo exploration, file search, research, log analysis, repetitive low-risk edits, and other straightforward parallelizable work.
+- Prefer completing small tasks directly instead of spawning subagents when delegation would add more coordination than value.
+- The orchestrator owns scope, synthesis, integration, and the final result. Subagents must stay inside their assigned bounded task and may not independently widen scope.
+- Model routing never overrides repository safety rules, approval checkpoints, testing rules, no-merge rules, spend limits, secrets handling, or deployment/database restrictions.
+- If a requested tier cannot be launched in the current runtime, use the nearest available suitable tier and report the fallback instead of blocking the task solely because of routing.
+
 ---
 
 ## 1. The app in sixty seconds
