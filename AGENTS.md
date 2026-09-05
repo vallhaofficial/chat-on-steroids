@@ -219,7 +219,7 @@ src/main/codex/read-backend.ts  connector read semantics over those primitives
 src/main/codex/view-image.ts  image load/validate + MCP content adaptation
 src/main/codex/apply-patch/*  V4A parser / matcher / runtime / shell interception
 
-── sessions ────────────────────────────────────────────────────────────────
+── sessions ───────────────────────────────────────────────────────────────
 src/main/session/store.ts     durable sessions, messages, assets, handoffs
 src/main/session/recorder.ts  merges MCP truth with browser observations
 src/main/session/correlation.ts  requestId → conversationId proof registry
@@ -287,7 +287,7 @@ earn it today.
 | --- | --- | --- |
 | `read` | `read` \| `browse` \| `metadata` | `tools-core.ts` → `codex/read-backend.ts` |
 | `view_image` | `read` | `tools-core.ts` → `codex/view-image.ts` |
-| `find` | `search` **and not** `command` | `search.ts` |
+| `find` | `search` **and not** `command` | `tools-core.ts` → `search.ts` |
 | `apply_patch` | any of `create`/`edit`/`move`/`deleteFile` | `codex/apply-patch/*` |
 | `exec_command`, `write_stdin` | `command` | `codex/unified-exec.ts` |
 | `session` | recording enabled | session subsystem |
